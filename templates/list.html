@@ -114,7 +114,7 @@
                                     <div class="page-body">
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <h5>Utilizadores</h5>
+                                                    <h5>Salas</h5>
                                                     <div class="card-header-right">
                                                     </div>
                                                 </div>
@@ -125,15 +125,25 @@
                                                                 <tr>
                                                                     <th>ID</th>
                                                                     <th>Nome</th>
-                                                                    <th>Email</th>
+                                                                    <th>X</th>
+                                                                    <th>Y</th>
+                                                                    <th>Tipo</th>
+                                                                    <th>Capacidade</th>
+                                                                    <th>Info</th>
+                                                                    <th>Horário</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 {% for row in data %}    
                                                                        <tr>
                                                                            <td>{{row.id}}</td>
-                                                                           <td>{{row.nome}}</td>
-                                                                           <td>{{row.email}}</td>
+                                                                           <td>{{row.name}}</td>
+                                                                           <td>{{row.map_position_x}}</td>
+                                                                           <td>{{row.map_position_y}}</td>
+                                                                           <td>{{row.room_type}}</td>
+                                                                           <td>{{row.capacity}}</td>
+                                                                           <td>{{row.info}}</td>
+                                                                           <td>{{row.schedule_file}}</td>
                                                                        </tr>
                                                                    {% endfor %}
                                                             </tbody>

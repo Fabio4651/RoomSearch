@@ -26,10 +26,20 @@ class Floor(db.Model):
     def __repr__(self):
         return repr(id)
 
+class User(db.Model):
+    __tablename__ = 'user'
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(256))
+    email = db.Column(db.String(256))
+    password = db.Column(db.String(256))
+
+    def __repr__(self):
+        return repr(id)
+
 class MicroBlogModelView(ModelView):
     # edit_template = 'microblog_edit.html'
     # create_template = 'microblog_create.html'
-    list_template = 'back.html'
+    list_template = 'list.html'
 
 class Room(db.Model):
     __tablename__ = 'room'
@@ -60,9 +70,15 @@ def hello_world():
     return render_template('pesquisarsala.html')
 
     
-@app.route('/list')
-def list():
-    return render_template('back.html')
+@app.route('/list_sala')
+def list_sala():
+    r = Room.query.all()
+    return render_template('list.html', data=r)
+
+@app.route('/list_user')
+def list_user():
+    u = User.query.all()
+    return render_template('verusers.html', data=u)
     
     
 @app.route('/admin')
