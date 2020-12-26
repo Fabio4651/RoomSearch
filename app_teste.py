@@ -26,6 +26,10 @@ class Floor(db.Model):
     def __repr__(self):
         return repr(id)
 
+class MicroBlogModelView(ModelView):
+    # edit_template = 'microblog_edit.html'
+    # create_template = 'microblog_create.html'
+    list_template = 'back.html'
 
 class Room(db.Model):
     __tablename__ = 'room'
@@ -55,6 +59,20 @@ admin.add_view(ModelView(Room, db.session))
 def hello_world():
     return render_template('pesquisarsala.html')
 
+    
+@app.route('/list')
+def list():
+    return render_template('back.html')
+    
+    
+@app.route('/admin')
+def admin():
+    return render_template('/admin/index.html')
+
+#@app.route('/admin/room')
+#def room():
+#   return render_template('/admin/microblog_listlist.html')    
+    
 
 @app.route('/t')
 def index():
