@@ -7,45 +7,46 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<!-- Main Style Css -->
 	<link rel="stylesheet" href="{{ url_for('static', filename='newstyle.css') }}"/>
-
-
+	<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}"/>
 
 	<script>
+	function mapResize() {
+		document.getElementById("mapcont").style.height = document.getElementById("map").clientWidth+"px";
+	}
+
     function myFunction() {
   		let search = document.getElementById("room_name").value;
    		 console.log(search);
 
 		fetch('/room?search='+search)
 		.then(function(response) {
-  			console.log(response);
+  			console.log(response.map_position_x);
  			response.text().then(function(text) {
-       		document.getElementById("result").innerHTML = text;
+			   	document.getElementById("result").innerHTML = text;
+
+				map_x = document.getElementById("map_position_x").value*document.getElementById("map").clientWidth;
+				document.getElementById('point').setAttribute('cx', map_x+"px")
+				map_y = document.getElementById("map_position_y").value*document.getElementById("map").clientWidth;
+				document.getElementById('point').setAttribute('cy', map_y+"px")
     		});
 		})
 	}
     </script>
 </head>
-<body class="form-v4">
-	<div class="page-content">
-		<!--<div style="float: right;">
-			<form>
-				<label for="room_name">Room name:</label><br>
-				<input type="text" id="room_name" name="room_name" value="S01"><br>
-			</form>
-					<button  id="search" onclick="myFunction()" >Search</button>
-			<div id="result"></div>
-		</div>-->
-		<div style="text-align: center;" class="form-v4-content">
-			<div class="form-left">
-                <!--<h2>MAPA</h2>-->
-                <div style="background-image: url('{{ url_for('static', filename='floor_0.jpg') }}'); width:100%; height:100%; background-repeat: no-repeat;background-size: 100%;">
-                        <svg style=" position: absolute;  top: 0%;  left: 50%;">
-                            <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
-                        </svg>
-                    <!--<img width="auto" src="{{ url_for('static', filename='floor_0.jpg') }}" alt="">-->
+<body onload="mapResize()" style="background-color:rgb(1, 90, 255);">
+
+	<div class="container"  style="height:100vh;">
+		<div style="height:100vh;" class="row align-items-center justify-content-center">
+			
+			<div id="mapcont" class="col-md-8" style="background-color:rgb(72, 255, 0);">
+        		<div id="map" style="background-color:rgb(236, 64, 22); background-image: url('{{ url_for('static', filename='floor_1.jpg') }}'); width:100%; height:100%; background-repeat: no-repeat;background-size: 100%, auto, contain;">
+                    <svg style="position:relative; width:100%; height:100%;">
+                        <circle id="point" cx="" cy="" r="8" fill="red" />
+                    </svg>
                 </div>
-				
 			</div>
+		 
+		  <div style="background-color:rgb(247, 0, 255);" class="col col-md-4">
 			<form class="form-detail" id="result">
                 <h2>PESQUISA DE SALA</h2>
                 <div class="form-group">
@@ -58,8 +59,8 @@
                     </div>
                 </div>
 			</form>
+		  </div>
 		</div>
-	</div>
-
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+	  </div>
+</body>
 </html>
