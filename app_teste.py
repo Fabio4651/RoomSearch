@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_admin import Admin
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin.contrib.sqla import ModelView
@@ -54,6 +54,17 @@ class Room(db.Model):
 
     floor_id = db.Column(db.Integer, db.ForeignKey(Floor.id))
 
+    def __init__(self, name, capacity, map_position_x, map_position_y, room_type, schedule_file, info, floor_id):
+        self.name = name
+        self.capacity = capacity
+        self.map_position_x = map_position_x
+        self.map_position_y = map_position_y
+        self.room_type = room_type
+        self.schedule_file = schedule_file
+        self.info = info
+        self.floor_id = floor_id
+        
+
     def __repr__(self):
         return repr(id)
 
@@ -73,7 +84,43 @@ def hello_world():
 @app.route('/list_sala')
 def list_sala():
     r = Room.query.all()
-    return render_template('list.html', data=r)
+    return render_template('/list.html', data=r)
+
+@app.route('/insert_sala')
+def insert_sala():
+    #hor = request.files['horario']
+    #return hor.filename
+    r = Room.query.all()
+    return render_template('addsala.html')
+
+@app.route('/insert_sala2', methods=['POST'])
+def insert_sala2():
+    r = Room.query.all()
+    name = request.form['name']
+    capacity = request.form['capacity'] 
+    map_position_x = request.form['x_pos']
+    map_position_y = request.form['y_pos']
+    room_type = request.form['type']
+    floor_id = request.form['piso']
+    info = request.form['info']
+    schedule_file = request.files['horario']
+    
+    new_room = Room(name=name, capacity=capacity, map_position_x=map_position_x, map_position_y=map_position_y, room_type=room_type, info=info, floor_id=floor_id, schedule_file=schedule_file.filename)
+
+    db.session.add(new_room)
+    db.session.commit()
+
+    return redirect(url_for('list_sala'))
+
+@app.route('/delete_sala', methods=['POST'])
+def delete_sala():
+    id_room = Room.query.filter_by(id='id_sala').first()
+    #r = Room.query.filter_by(id=id_room).one()
+    print('Diego '+str(id_room))
+    db.session.delete(id_room)
+    db.session.commit()
+    return redirect(url_for('list_sala'))
+
 
 @app.route('/list_user')
 def list_user():

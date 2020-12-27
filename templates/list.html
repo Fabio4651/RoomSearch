@@ -37,6 +37,34 @@
         <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
       <!-- Style.css -->
       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/backoffice/assets/css/style.css') }}">
+
+
+      <script>
+
+        function send(id_sala) {
+            redirectPost('/delete_sala?id_sala='+id_sala, { id: id_sala })
+            .then(function(response) {
+                console.log(response);
+            })
+        }
+    
+        function redirectPost(url, id_sala) {
+            var form = document.createElement('form');
+            document.body.appendChild(form);
+            form.method = 'post';
+            form.action = url;
+            for (var name in id_sala) {
+                var input = document.createElement('input');
+                input.value = id_sala
+                form.appendChild(input);
+            }
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        }
+
+
+    </script>
   </head>
 
   <body>
@@ -130,7 +158,10 @@
                                                                     <th>Tipo</th>
                                                                     <th>Capacidade</th>
                                                                     <th>Info</th>
+                                                                    <th>Piso</th>
                                                                     <th>Horário</th>
+                                                                    <th>Editar</th>
+                                                                    <th>Apagar</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -143,7 +174,10 @@
                                                                            <td>{{row.room_type}}</td>
                                                                            <td>{{row.capacity}}</td>
                                                                            <td>{{row.info}}</td>
+                                                                           <td>{{row.floor_id}}</td>
                                                                            <td>{{row.schedule_file}}</td>
+                                                                           <td><button class="btn waves-effect waves-light btn-warning btn-icon"><i class="icofont ti-pencil"></i></button></td>
+                                                                           <td><button onclick="send({{row.id}})" class="btn waves-effect waves-light btn-danger btn-icon"><i class="icofont ti-trash"></i></button></td>
                                                                        </tr>
                                                                    {% endfor %}
                                                             </tbody>

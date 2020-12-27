@@ -3,6 +3,7 @@
 
 <head>
     <title>Mega Able bootstrap admin template by codedthemes </title>
+
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -17,25 +18,25 @@
       <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
       <meta name="author" content="codedthemes" />
       <!-- Favicon icon -->
-      <link rel="icon" href="../backoffice/assets/images/favicon.ico" type="image/x-icon">
+      <link rel="icon" href="{{ url_for('static', filename='/backoffice/assets/images/favicon.ico') }}" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
     <!-- waves.css -->
-    <link rel="stylesheet" href="../backoffice/assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/backoffice/assets/pages/waves/css/waves.min.css') }}" type="text/css" media="all">
       <!-- Required Fremwork -->
-      <link rel="stylesheet" type="text/css" href="../backoffice/assets/css/bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/backoffice/assets/css/bootstrap/css/bootstrap.min.css') }}">
       <!-- waves.css -->
-      <link rel="stylesheet" href="../backoffice/assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+      <link rel="stylesheet" href="{{ url_for('static', filename='/backoffice/assets/pages/waves/css/waves.min.css') }}" type="text/css" media="all">
       <!-- themify icon -->
-      <link rel="stylesheet" type="text/css" href="../backoffice/assets/icon/themify-icons/themify-icons.css">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/backoffice/assets/icon/themify-icons/themify-icons.css') }}">
       <!-- Font Awesome -->
-      <link rel="stylesheet" type="text/css" href="../backoffice/assets/icon/font-awesome/css/font-awesome.min.css">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/backoffice/assets/icon/font-awesome/css/font-awesome.min.css') }}">
       <!-- scrollbar.css -->
-      <link rel="stylesheet" type="text/css" href="../backoffice/assets/css/jquery.mCustomScrollbar.css">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/backoffice/assets/css/jquery.mCustomScrollbar.css') }}">
         <!-- am chart export.css -->
         <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
       <!-- Style.css -->
-      <link rel="stylesheet" type="text/css" href="../backoffice/assets/css/style.css">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/backoffice/assets/css/style.css') }}">
   </head>
 
   <body>
@@ -96,181 +97,13 @@
   <div id="pcoded" class="pcoded">
       <div class="pcoded-overlay-box"></div>
       <div class="pcoded-container navbar-wrapper">
-          <nav class="navbar header-navbar pcoded-header">
-              <div class="navbar-wrapper">
-                  <div class="navbar-logo">
-                      <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
-                          <i class="ti-menu"></i>
-                      </a>
-                      <div class="mobile-search waves-effect waves-light">
-                          <div class="header-search">
-                              <div class="main-search morphsearch-search">
-                                  <div class="input-group">
-                                      <span class="input-group-addon search-close"><i class="ti-close"></i></span>
-                                      <input type="text" class="form-control" placeholder="Enter Keyword">
-                                      <span class="input-group-addon search-btn"><i class="ti-search"></i></span>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <a href="index.html">
-                          <img class="img-fluid" src="../backoffice/assets/images/logo.png" alt="Theme-Logo" />
-                      </a>
-                      <a class="mobile-options waves-effect waves-light">
-                          <i class="ti-more"></i>
-                      </a>
-                  </div>
-                
-                  <div class="navbar-container container-fluid">
-                      <ul class="nav-left">
-                          <li>
-                              <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
-                          </li>
-
-                      </ul>
-                      <ul class="nav-right">
-                          <li class="header-notification">
-                              <a href="#!" class="waves-effect waves-light">
-                                  <i class="ti-bell"></i>
-                                  <span class="badge bg-c-red"></span>
-                              </a>
-                              <ul class="show-notification">
-                                  <li>
-                                      <h6>Notifications</h6>
-                                      <label class="label label-danger">New</label>
-                                  </li>
-                                  <li class="waves-effect waves-light">
-                                      <div class="media">
-                                          <img class="d-flex align-self-center img-radius" src="../backoffice/assets/images/avatar-2.jpg" alt="Generic placeholder image">
-                                          <div class="media-body">
-                                              <h5 class="notification-user">John Doe</h5>
-                                              <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                              <span class="notification-time">30 minutes ago</span>
-                                          </div>
-                                      </div>
-                                  </li>
-                                  <li class="waves-effect waves-light">
-                                      <div class="media">
-                                          <img class="d-flex align-self-center img-radius" src="../backoffice/assets/images/avatar-4.jpg" alt="Generic placeholder image">
-                                          <div class="media-body">
-                                              <h5 class="notification-user">Joseph William</h5>
-                                              <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                              <span class="notification-time">30 minutes ago</span>
-                                          </div>
-                                      </div>
-                                  </li>
-                                  <li class="waves-effect waves-light">
-                                      <div class="media">
-                                          <img class="d-flex align-self-center img-radius" src="../backoffice/assets/images/avatar-3.jpg" alt="Generic placeholder image">
-                                          <div class="media-body">
-                                              <h5 class="notification-user">Sara Soudein</h5>
-                                              <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                              <span class="notification-time">30 minutes ago</span>
-                                          </div>
-                                      </div>
-                                  </li>
-                              </ul>
-                          </li>
-                          <li class="user-profile header-notification">
-                              <a href="#!" class="waves-effect waves-light">
-                                  <img src="../backoffice/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                  <span>John Doe</span>
-                                  <i class="ti-angle-down"></i>
-                              </a>
-                              <ul class="show-notification profile-notification">
-                                  <li class="waves-effect waves-light">
-                                      <a href="#!">
-                                          <i class="ti-settings"></i> Settings
-                                      </a>
-                                  </li>
-                                  <li class="waves-effect waves-light">
-                                      <a href="user-profile.html">
-                                          <i class="ti-user"></i> Profile
-                                      </a>
-                                  </li>
-                                  <li class="waves-effect waves-light">
-                                      <a href="email-inbox.html">
-                                          <i class="ti-email"></i> My Messages
-                                      </a>
-                                  </li>
-                                  <li class="waves-effect waves-light">
-                                      <a href="auth-lock-screen.html">
-                                          <i class="ti-lock"></i> Lock Screen
-                                      </a>
-                                  </li>
-                                  <li class="waves-effect waves-light">
-                                      <a href="auth-normal-sign-in.html">
-                                          <i class="ti-layout-sidebar-left"></i> Logout
-                                      </a>
-                                  </li>
-                              </ul>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-          </nav>
+        {% include 'header.html' %}
 
           <div class="pcoded-main-container">
               <div class="pcoded-wrapper">
-                  <nav class="pcoded-navbar">
-                      <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
-                      <div class="pcoded-inner-navbar main-menu">
-                          <div class="">
-        
-                              <div class="main-menu-content">
-                                  <ul>
-                                      <li class="more-details">
-                                          <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
-                                          <a href="#!"><i class="ti-settings"></i>Settings</a>
-                                          <a href="auth-normal-sign-in.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
-                          <div class="pcoded-navigation-label" data-i18n="nav.category.navigation"></div>
-                          <ul class="pcoded-item pcoded-left-item">
-                            <li>
-                                <a href="back.html" class="waves-effect waves-dark">
-                                    <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                    <span class="pcoded-mtext" data-i18n="nav.dash.main">Home</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                            <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Salas</div>
-                            <li class="pcoded-hasmenu pcoded-trigger">
-                              <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                  <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                  <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Salas</span>
-                                  <span class="pcoded-mcaret"></span>
-                              </a>
-                              <ul class="pcoded-submenu">
-                                  <li class=" ">
-                                      <a href="versala.html" class="waves-effect waves-dark">
-                                          <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                          <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Ver Salas</span>
-                                          <span class="pcoded-mcaret"></span>
-                                      </a>
-                                  </li>
-                                  <li class="active">
-                                      <a href="addsala.html" class="waves-effect waves-dark">
-                                          <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                          <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Adicionar sala</span>
-                                          <span class="pcoded-mcaret"></span>
-                                      </a>
-                                  </li>         
-                              </ul>
-                            </li>
-                              <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Utilizadores</div>
-                              <li>
-                                <a href="form-elements-component.html" class="waves-effect waves-dark">
-                                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Ver Utilizadores</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                            </ul>
-                      </div>
-                  </nav>
+
+                {% include 'sidebar.html' %}
+
                   <div class="pcoded-content">
                       <!-- Page-header end -->
                         <div class="pcoded-inner-content">
@@ -278,67 +111,91 @@
                             <div class="main-body">
                                 <div class="page-wrapper">
                                     <!-- Page-body start -->
-                                    <div class="page-body">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5>Adicionar Sala</h5>
+                                    <div class="page-body"><div class="card">
+                                        <div class="card-header">
+                                            <h5>Adicionar Sala</h5>
+                                        </div>
+                                    <div class="card-block">
+                                        <form method="POST" action="/insert_sala2" enctype="multipart/form-data">
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Nome</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" id="name" name="name" class="form-control">
+                                                </div>
                                             </div>
-                                        <div class="card-block">
-                                            <form>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Nome</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control">
-                                                    </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Capacidade</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" id="capacity" name="capacity" class="form-control">
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Capacidade</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="number" class="form-control">
-                                                    </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Posição X</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" id="x_pos" min="0" max="1" step="0.001" name="x_pos" class="form-control">
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Posição X</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="number" class="form-control">
-                                                    </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Posição Y</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" id="y_pos" min="0" max="1" step="0.001" name="y_pos" class="form-control">
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Posição Y</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="number" class="form-control">
-                                                    </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Tipo de Sala</label>
+                                                <div class="col-sm-10"><br>
+                                                    <input type="radio" id="type" name="type" value="Aula">
+                                                    <label for="Aula">Aula</label><br>
+                                    
+                                                    <input type="radio" id="type" name="type" value="Laboratório">
+                                                    <label for="Laboratório">Laboratório</label><br> 
+                                    
+                                                    <input type="radio" id="type" name="type" value="Auditório">
+                                                    <label for="Auditório">Auditório</label><br>
+                                    
+                                                    <input type="radio" id="type" name="type" value="Estudo">
+                                                    <label for="Estudo">Estudo</label><br><br>
+                                    
+                                                    <!--<input type="submit" value="Submit">-->
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label">Tipo de Sala</label>
-                                                    <div class="col-sm-10"><br>
-                                                        <input type="radio" id="age1" name="age" value="30">
-                                                        <label for="age1">Aula</label><br>
-
-                                                        <input type="radio" id="age2" name="age" value="60">
-                                                        <label for="age2">Laboratório</label><br> 
-
-                                                        <input type="radio" id="age3" name="age" value="100">
-                                                        <label for="age3">Auditório</label><br>
-
-                                                        <input type="radio" id="age3" name="age" value="100">
-                                                        <label for="age3">Estudo</label><br><br>
-
-                                                        <!--<input type="submit" value="Submit">-->
-                                                    </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Piso</label>
+                                                <div class="col-sm-10"><br>
+                                                    <input type="radio" id="piso" name="piso" value="0">
+                                                    <label for="0">0</label><br>
+                                    
+                                                    <input type="radio" id="piso" name="piso" value="1">
+                                                    <label for="1">1</label><br> 
+                                    
+                                                    <input type="radio" id="piso" name="piso" value="2">
+                                                    <label for="2">2</label><br><br>
+                                    
+                                                    <!--<input type="submit" value="Submit">-->
                                                 </div>
-                                                <button class="btn btn-primary waves-effect waves-light">Adicionar Sala</button>
-                                            </form>
-                                        </div>
-                                        </div>
-                                        <div class="row">
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Informações sobre a sala</label>
+                                                <div class="col-sm-10">
+                                                    <textarea rows="5" id="info" name="info" cols="5" class="form-control"
+                                                    placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="horario" class="col-sm-2 col-form-label">Horário da sala</label>
+                                                <div class="col-sm-10">
+                                                    <input type="file" id="horario" name="horario" class="form-control">
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light">Adicionar Sala</button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div id="styleSelector"> </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+             </div>
         </div>
     </div>
     <!-- Warning Section Starts -->
@@ -387,35 +244,54 @@
     <!-- Warning Section Ends -->
     
     <!-- Required Jquery -->
-    <script type="text/javascript" src="../backoffice/assets/js/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="../backoffice/assets/js/jquery-ui/jquery-ui.min.js "></script>
-    <script type="text/javascript" src="../backoffice/assets/js/popper.js/popper.min.js"></script>
-    <script type="text/javascript" src="../backoffice/assets/js/bootstrap/js/bootstrap.min.js "></script>
-    <script type="text/javascript" src="../backoffice/assets/pages/widget/excanvas.js "></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/backoffice/assets/js/jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/backoffice/assets/js/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/backoffice/assets/js/popper.js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/backoffice/assets/js/popper.js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/backoffice/assets/pages/widget/excanvas.js') }}"></script>
     <!-- waves js -->
-    <script src="../backoffice/assets/pages/waves/js/waves.min.js"></script>
+    <script src="{{ url_for('static', filename='/backoffice/assets/pages/waves/js/waves.min.js') }}"></script>
     <!-- jquery slimscroll js -->
-    <script type="text/javascript" src="../backoffice/assets/js/jquery-slimscroll/jquery.slimscroll.js "></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/backoffice/assets/js/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
     <!-- modernizr js -->
-    <script type="text/javascript" src="../backoffice/assets/js/modernizr/modernizr.js "></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/backoffice/assets/js/modernizr/modernizr.js') }}"></script>
     <!-- slimscroll js -->
-    <script type="text/javascript" src="../backoffice/assets/js/SmoothScroll.js"></script>
-    <script src="../backoffice/assets/js/jquery.mCustomScrollbar.concat.min.js "></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/backoffice/assets/js/SmoothScroll.js') }}"></script>
+    <script src="{{ url_for('static', filename='/backoffice/assets/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
     <!-- Chart js -->
-    <script type="text/javascript" src="../backoffice/assets/js/chart.js/Chart.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/backoffice/assets/js/chart.js/Chart.js') }}"></script>
     <!-- amchart js -->
     <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-    <script src="../backoffice/assets/pages/widget/amchart/gauge.js"></script>
-    <script src="../backoffice/assets/pages/widget/amchart/serial.js"></script>
-    <script src="../backoffice/assets/pages/widget/amchart/light.js"></script>
-    <script src="../backoffice/assets/pages/widget/amchart/pie.min.js"></script>
+    <script src="{{ url_for('static', filename='/backoffice/assets/pages/widget/amchart/gauge.js') }}"></script>
+    <script src="{{ url_for('static', filename='/backoffice/assets/pages/widget/amchart/serial.js') }}"></script>
+    <script src="{{ url_for('static', filename='/backoffice/assets/pages/widget/amchart/light.js') }}"></script>
+    <script src="{{ url_for('static', filename='/backoffice/assets/pages/widget/amchart/pie.min.js') }}"></script>
     <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
     <!-- menu js -->
-    <script src="../backoffice/assets/js/pcoded.min.js"></script>
-    <script src="../backoffice/assets/js/vertical-layout.min.js "></script>
+    <script src="{{ url_for('static', filename='/backoffice/assets/js/pcoded.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='/backoffice/assets/js/vertical-layout.min.js') }}"></script>
     <!-- custom js -->
-    <script type="text/javascript" src="../backoffice/assets/pages/dashboard/custom-dashboard.js"></script>
-    <script type="text/javascript" src="../backoffice/assets/js/script.js "></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/backoffice/assets/pages/dashboard/custom-dashboard.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/backoffice/assets/js/script.js') }}"></script>
+
+    </script>   
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
