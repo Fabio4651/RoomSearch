@@ -51,13 +51,12 @@
         function redirectPost(url, id_sala) {
             var form = document.createElement('form');
             document.body.appendChild(form);
-            form.method = 'post';
+            form.method = 'POST';
             form.action = url;
-            for (var name in id_sala) {
-                var input = document.createElement('input');
-                input.value = id_sala
-                form.appendChild(input);
-            }
+            var input = document.createElement('input');
+            input.value = id_sala
+            form.appendChild(input);
+            
             document.body.appendChild(form);
             form.submit();
             document.body.removeChild(form);

@@ -8,6 +8,7 @@ app = Flask(__name__)
 app.secret_key = "SECRET_TESTING"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # set optional bootswatch theme
 app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
@@ -114,10 +115,9 @@ def insert_sala2():
 
 @app.route('/delete_sala', methods=['POST'])
 def delete_sala():
-    id_room = Room.query.filter_by(id='id_sala').first()
-    #r = Room.query.filter_by(id=id_room).one()
-    print('Diego '+str(id_room))
-    db.session.delete(id_room)
+    data = request.args.get('id_sala')
+    #delete_room = Room(id=id_room)
+    Room.query.filter_by(id=data).delete()
     db.session.commit()
     return redirect(url_for('list_sala'))
 

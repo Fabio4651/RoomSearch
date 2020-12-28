@@ -8747,8 +8747,9 @@ body.menu-bottom #collapse-menu {
     border-color: rgba(68, 138, 255, 0.5); }
 
 .btn-warning {
-  background-color: #ffe100;
-  border-color: #ffe100;
+  /*background-color: #ffe100;*/
+  background-color: #b75f04;
+  border-color: #b75f04;
   color: #fff;
   cursor: pointer;
   -webkit-transition: all ease-in 0.3s;
