@@ -1,7 +1,11 @@
+import os
+from os.path import join, dirname, realpath
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_admin import Admin
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin.contrib.sqla import ModelView
+from flask_uploads import IMAGES, UploadSet, configure_uploads
+from pathlib import Path
 
 app = Flask(__name__)
 
@@ -12,6 +16,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # set optional bootswatch theme
 app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+
+files = UploadSet('files', IMAGES)
+
+app.config['UPLOADED_FILES_ALLOW'] = set(['png', 'jpg', 'jpeg', 'pdf'])
+app.config['UPLOADED_FILES_DEST'] = 'static/upload'
+configure_uploads(app, files)
 
 
 db = SQLAlchemy(app)
@@ -77,6 +87,7 @@ admin.add_view(ModelView(Floor, db.session))
 admin.add_view(ModelView(Room, db.session))
 
 
+
 @app.route('/')
 def hello_world():
     return render_template('pesquisarsala.html')
@@ -96,6 +107,9 @@ def insert_sala():
 
 @app.route('/insert_sala2', methods=['POST'])
 def insert_sala2():
+    descending = Room.query.order_by(Room.id.desc())
+    last_item = descending.first()
+    last_id = last_item.id + 1
     r = Room.query.all()
     name = request.form['name']
     capacity = request.form['capacity'] 
@@ -105,8 +119,14 @@ def insert_sala2():
     floor_id = request.form['piso']
     info = request.form['info']
     schedule_file = request.files['horario']
+
+    #print(str(last_id))
+    #allowed_file(file.filename):
+
+    if request.method == 'POST' and 'horario' in request.files:
+        filename = files.save(request.files['horario'], name=str(last_id) + '.pdf')
     
-    new_room = Room(name=name, capacity=capacity, map_position_x=map_position_x, map_position_y=map_position_y, room_type=room_type, info=info, floor_id=floor_id, schedule_file=schedule_file.filename)
+    new_room = Room(name=name, capacity=capacity, map_position_x=map_position_x, map_position_y=map_position_y, room_type=room_type, info=info, floor_id=floor_id, schedule_file=str(last_id) + '.pdf')
 
     db.session.add(new_room)
     db.session.commit()
@@ -117,7 +137,12 @@ def insert_sala2():
 def delete_sala():
     data = request.args.get('id_sala')
     #delete_room = Room(id=id_room)
+    data_file = str(data)+'.pdf'
     Room.query.filter_by(id=data).delete()
+
+    my_file = Path(os.path.join(app.config['UPLOADED_FILES_DEST'], data_file))
+    if my_file.exists():
+        os.remove(os.path.join(app.config['UPLOADED_FILES_DEST'], data_file))
     db.session.commit()
     return redirect(url_for('list_sala'))
 
