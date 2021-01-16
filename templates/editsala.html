@@ -37,59 +37,27 @@
         <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
       <!-- Style.css -->
       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/backoffice/assets/css/style.css') }}">
-
-
       <script>
-
-        function apagar(id) {
-            var r = confirm("Tem a certeza que pretende apagar?");
-            if (r == true) {
-                send(id)
-            } 
-        }
-
-        function send(id_sala) {
-            redirectPost('/delete_sala?id_sala='+id_sala, { id: id_sala })
-            .then(function(response) {
-                console.log(response);
-            })
-        }
-    
-        function redirectPost(url, id_sala) {
-            var form = document.createElement('form');
-            document.body.appendChild(form);
-            form.method = 'POST';
-            form.action = url;
-            var input = document.createElement('input');
-            input.value = id_sala
-            form.appendChild(input);
-            
-            document.body.appendChild(form);
-            form.submit();
-            document.body.removeChild(form);
-        }
-
-        function edit(id_sala) {
-            redirectPost('/update_sala?id_sala='+id_sala, { id: id_sala })
+        function edit(id) {
+            redirectPost('/edit_sala?id='+id, { id: id })
             .then(function(response) {
                 console.log(response);
             })
         }
 
-        function redirectPost(url, id_sala) {
+        function redirectPost(url, id) {
             var form = document.createElement('form');
             document.body.appendChild(form);
             form.method = 'POST';
             form.action = url;
             var input = document.createElement('input');
-            input.value = id_sala;
+            input.value = id;
             form.appendChild(input);
 
             document.body.appendChild(form);
             form.submit();
             document.body.removeChild(form);
         }
-
     </script>
   </head>
 
@@ -165,64 +133,85 @@
                             <div class="main-body">
                                 <div class="page-wrapper">
                                     <!-- Page-body start -->
-                                    <div class="page-body">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <h5>Salas</h5>
-                                                    <div class="card-header-right">
-                                                    </div>
-                                                </div>
-                                                <div class="card-block table-border-style">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-hover">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>ID</th>
-                                                                    <th>Nome</th>
-                                                                    <th>X</th>
-                                                                    <th>Y</th>
-                                                                    <th>Tipo</th>
-                                                                    <th>Capacidade</th>
-                                                                    <th>Info</th>
-                                                                    <th>Piso</th>
-                                                                    <th>Horário</th>
-                                                                    <th>Editar</th>
-                                                                    <th>Apagar</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                {% for row in data %}    
-                                                                       <tr>
-                                                                           <td>{{row.id}}</td>
-                                                                           <td>{{row.name}}</td>
-                                                                           <td>{{row.map_position_x}}</td>
-                                                                           <td>{{row.map_position_y}}</td>
-                                                                           <td>{{row.room_type}}</td>
-                                                                           <td>{{row.capacity}}</td>
-                                                                           <td>{{row.info}}</td>
-                                                                           <td>{{row.floor_id}}</td>
-                                                                           <td><a href="{{row.schedule_file}}" class="btn waves-effect waves-light btn-primary btn-icon"><i class="ti-calendar"></i></a></td>
-                                                                           <td><button onclick="edit({{row.id}})" class="btn waves-effect waves-light btn-success btn-icon"><i class="icofont ti-pencil"></i></button></td>
-                                                                           <td><button onclick="apagar({{row.id}})" class="btn waves-effect waves-light btn-danger btn-icon"><i class="icofont ti-trash"></i></button></td>
-                                                                       </tr>
-                                                                   {% endfor %}
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                    <div class="page-body"><div class="card">
+                                        <div class="card-header">
+                                            <h5>Editar Sala</h5>
+                                        </div>
+                                    <div class="card-block">
+                                        {% for row in update %}
+                                        <form method="POST" action="/edit_sala" enctype="multipart/form-data">
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Nome</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" id="name" value="{{row.name}}" name="name" class="form-control">
+                                                    <input type="text" hidden class="form-control" value="{{row.id}}" placeholder="" id="id" name="id">
                                                 </div>
                                             </div>
-
-                                              <!--    id = db.Column(db.Integer, primary_key=True)
-                                                        name = db.Column(db.String(256))
-                                                        map_position_x = db.Column(db.Float)
-                                                        map_position_y = db.Column(db.Float)
-                                                        room_type = db.Column(db.String(256))
-                                                        capacity = db.Column(db.Integer)
-                                                        schedule_file = db.Column(db.String(256))
-                                                        info = db.Column(db.Text)
-
-                                                        floor_id = db.Column(db.Integer, db.ForeignKey(Floor.id))-->
-
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Capacidade</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" id="capacity" value="{{row.capacity}}" name="capacity" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Posição X</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" id="x_pos" min="0" value="{{row.map_position_x}}" max="1" step="0.001" name="x_pos" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Posição Y</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" id="y_pos" min="0" value="{{row.map_position_y}}" max="1" step="0.001" name="y_pos" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Tipo de Sala</label>
+                                                <div class="col-sm-10"><br>
+                                                    <input type="radio" id="type" name="type" {% if row.room_type=="Aula" %} checked{% endif %} value="Aula">
+                                                    <label for="Aula">Aula</label><br>
+                                    
+                                                    <input type="radio" id="type" name="type" {% if row.room_type=="Laboratório" %} checked{% endif %} value="Laboratório">
+                                                    <label for="Laboratório">Laboratório</label><br> 
+                                    
+                                                    <input type="radio" id="type" name="type" {% if row.room_type=="Auditório" %} checked{% endif %} value="Auditório">
+                                                    <label for="Auditório">Auditório</label><br>
+                                    
+                                                    <input type="radio" id="type" name="type" {% if row.room_type=="Estudo" %} checked{% endif %} value="Estudo">
+                                                    <label for="Estudo">Estudo</label><br><br>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Piso</label>
+                                                <div class="col-sm-10"><br>
+                                                    <input type="radio" id="piso" name="piso" value="0" {% if row.floor_id==0 %} checked{% endif %}> 
+                                                    <label for="0">0</label><br>
+                                    
+                                                    <input type="radio" id="piso" name="piso" value="1" {% if row.floor_id==1 %} checked{% endif %}>
+                                                    <label for="1">1</label><br> 
+                                    
+                                                    <input type="radio" id="piso" name="piso" value="2" {% if row.floor_id==2 %} checked{% endif %}>
+                                                    <label for="2">2</label><br><br>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Informações sobre a sala</label>
+                                                <div class="col-sm-10">
+                                                    <textarea rows="5" id="info" name="info" cols="5" class="form-control"
+                                                    placeholder="">{{row.info}}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="horario" class="col-sm-2 col-form-label">Horário da sala</label>
+                                                <div class="col-sm-10">
+                                                    <input type="file" id="horario" name="horario" class="form-control">
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light">Editar Sala</button>
+                                        </form>
+                                        {% endfor %}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -310,3 +299,20 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
