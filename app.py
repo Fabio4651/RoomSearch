@@ -98,6 +98,29 @@ def list_sala():
     r = Room.query.all()
     return render_template('/list.html', data=r)
 
+@app.route('/list_user')
+def list_user():
+    u = User.query.all()
+    return render_template('/listuser.html', data=u)   
+
+@app.route('/insert_user')
+def insert_user():
+    u = User.query.all()
+    return render_template('adduser.html')
+
+@app.route('/insert_user2', methods=['POST'])
+def insert_user2():
+    nome = request.form['nome']
+    email = request.form['email'] 
+    password = request.form['password']
+        
+    new_user = User(nome=nome, email=email, password=password)
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    return redirect(url_for('list_user'))     
+
 @app.route('/insert_sala')
 def insert_sala():
     #hor = request.files['horario']
@@ -144,6 +167,40 @@ def delete_sala():
     db.session.commit()
     return redirect(url_for('list_sala'))
 
+@app.route('/delete_user', methods=['POST'])
+def delete_user():
+    data = request.args.get('id_user')
+    User.query.filter_by(id=data).delete()
+    db.session.commit()
+    return redirect(url_for('list_user'))
+
+@app.route("/update_user", methods=['POST'])
+def update_user():
+    data=request.args.get('id_user')
+    update = User.query.filter_by(id=data)
+
+    return render_template('edituser.html', update=update) 
+
+@app.route('/edit_user', methods=['POST'])
+def edit_user():
+        
+    data = request.form['id']
+    update = User.query.filter_by(id=data).first()
+    bd_doc = update.schedule_file
+    schedule_file = request.files['horario']
+
+    if request.method == 'POST' and 'nome' in request.form:
+            update.nome = request.form['nome'] 
+
+    if request.method == 'POST' and 'email' in request.form:    
+        update.email = request.form['email']
+
+    if request.method == 'POST' and 'password' in request.form:
+        update.password = request.form['password']
+
+    db.session.commit()
+    return redirect(url_for('list_user'))    
+
 @app.route("/update_sala", methods=['POST'])
 def update_sala():
     data=request.args.get('id_sala')
@@ -186,12 +243,6 @@ def edit_sala():
 
     db.session.commit()
     return redirect(url_for('list_sala'))
-
-
-@app.route('/list_user')
-def list_user():
-    u = User.query.all()
-    return render_template('verusers.html', data=u)
     
     
 @app.route('/admin')

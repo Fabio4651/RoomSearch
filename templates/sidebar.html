@@ -41,7 +41,7 @@
             <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Salas</div>
             <li class="pcoded-hasmenu pcoded-trigger">
               <a href="javascript:void(0)" class="waves-effect waves-dark">
-                  <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                  <span class="pcoded-micon"><i class="ti-view-grid"></i></span>
                   <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Salas</span>
                   <span class="pcoded-mcaret"></span>
               </a>
@@ -63,13 +63,29 @@
               </ul>
             </li>
             <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Utilizadores</div>
-            <li>
-              <a href="/list_user" class="waves-effect waves-dark">
-                  <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                  <span class="pcoded-mtext" data-i18n="nav.form-components.main">Ver Utilizadores</span>
-                  <span class="pcoded-mcaret"></span>
-              </a>
-          </li>
+            <li class="pcoded-hasmenu pcoded-trigger">
+                <a href="javascript:void(0)" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-user"></i></span>
+                    <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Utilizadores</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class=" ">
+                        <a href="/list_user" class="waves-effect waves-dark">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Ver Utilizadores</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="/insert_user" class="waves-effect waves-dark">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Adicionar Utilizador</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>         
+                </ul>
+              </li>
           </ul>
     </div>
 </nav>
