@@ -7,26 +7,23 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<!-- Main Style Css -->
 	<link rel="stylesheet" href="{{ url_for('static', filename='newstyle.css') }}"/>
+	<script src="{{ url_for('static', filename='d3.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='d3.js') }}"></script>
 
 	<script type="text/javascript">
 
-	function check_value()
-		{
-			switch(document.andar.piso.value)
-			{
+	function check_value(){
+		switch(document.andar.piso.value){
 				case "0":
-				
-					document.getElementById("mapa").innerHTML = "<img style='border-radius: 25px;width:100%; height:100%; background-repeat: no-repeat;background-size: 100%;' width='auto' src='{{ url_for('static', filename='img/floor_0.jpg') }}' alt=''>";
+					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/floor_0.jpg') }}')";
 					break;
 
 				case "1":
-
-					document.getElementById("mapa").innerHTML = "<img style='border-radius: 25px;width:100%; height:100%; background-repeat: no-repeat;background-size: 100%;' width='auto' src='{{ url_for('static', filename='img/draw.png') }}' alt=''>"; 
+					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/floor_1.jpg') }}')"; 
 					break;
 
 				case "2":
-
-					document.getElementById("mapa").innerHTML = "<img style='border-radius: 25px;width:100%; height:100%; background-repeat: no-repeat;background-size: 100%;' width='auto' src='{{ url_for('static', filename='img/floor_0.jpg') }}' alt=''>"; 
+					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/floor_2.jpg') }}')"; 
 					break;
 			}
 		}
@@ -34,6 +31,10 @@
 	</script>
 
 	<script>
+	function mapResize() {
+		document.getElementById("mapcont").style.height = document.getElementById("map").clientWidth+"px";
+	}
+	
     function myFunction() {
   		let search = document.getElementById("room_name").value;
    		 console.log(search);
@@ -42,24 +43,51 @@
 		.then(function(response) {
   			console.log(response);
  			response.text().then(function(text) {
-       		document.getElementById("result").innerHTML = text;
+			document.getElementById("result").innerHTML = text;
+			   
+			map_x = document.getElementById("map_position_x").value*document.getElementById("map").clientWidth;
+			document.getElementById('point').setAttribute('cx', map_x+"px")
+			map_y = document.getElementById("map_position_y").value*document.getElementById("map").clientWidth;
+			document.getElementById('point').setAttribute('cy', map_y+"px")
     		});
 		})
 	}
     </script>
 </head>
-<body class="form-v4">
-	<div class="page-content">
+<body class="form-v4" onload="mapResize()">
+	<div class="page-content" style="height: 100vh;">
 		<div style="text-align: center;" class="form-v4-content">
-			<div class="form-left">
 				<!--<h2>MAPA</h2>-->
-				<div id="mapa">
-
-                    <img style="border-radius: 25px;width:100%; height:100%; background-repeat: no-repeat;background-size: 100%;" width="auto" src="{{ url_for('static', filename='img/floor_0.jpg') }}" alt="">
-				</div><br>
+				<div class="form-left">
+					<div id="mapcont" class="col-md-8" style="height:100%;">
+						<div id="map" style="width:100%; height:100%; background-repeat: no-repeat; background-size: 100%; background-image: url('{{ url_for('static', filename='img/floor_0.jpg') }}');">
+							<svg id="svg" style="position:relative; width:100%; height:100%;">
+								<circle id="point" cx="" cy="" r="8" fill="red" />
+							</svg>
+						</div>
+					</div>
+				</div>
+			<div class="form-detail">
+				<form id="result">
+					<h2>PESQUISA DE SALA</h2>
+					<div class="form-group">
+						<div class="form-row form-row-1">
+							<label>Nome da sala</label>
+							<input type="text" id="room_name" name="room_name" value="S01" class="input-text">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row form-row-1"><br>
+							<input name="register" id="search" onclick="myFunction()" class="register" value="Procurar">
+						</div>
+					</div>
+				</form>
+				<br>
+				<br>
+				<br>
 				<form name='andar'>
 					<div style="background-color: white; color: #3786bd; font-family: 'Open Sans', sans-serif;border-radius: 25px;" class="form-group row">
-						<h3><br>Piso</h3>
+						<h3>Piso</h3>
 						<div class="col-sm-10">
 							<input type="radio" id="piso" name="piso" onchange='check_value()' value="0">
 							<label for="0"><b>0</b></label><br>
@@ -69,28 +97,35 @@
 			
 							<input type="radio" id="piso" name="piso" onchange='check_value()' value="2">
 							<label for="2"><b>2</b></label><br><br>
-			
-							<!--<input type="submit" value="Submit">-->
 						</div>
 					</div>
 				</form>
 			</div>
-			<form class="form-detail" id="result">
-                <h2>PESQUISA DE SALA</h2>
-                <div class="form-group">
-                    <div class="form-row form-row-1">
-                        <label>Nome da sala</label>
-                        <input type="text" id="room_name" name="room_name" value="S01" class="input-text">
-                    </div>
-				</div>
-				<div class="form-group">
-                    <div class="form-row form-row-1"><br>
-                        <input  name="register" id="search" onclick="myFunction()" class="register" value="Procurar">
-                    </div>
-                </div>
-			</form>
 		</div>
 	</div>
 
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</body>
+<script>
+	(function() {
+    var svg = d3.select('#svg');
+    
+		function drawCircle(x, y, size) {
+			console.log('Drawing circle at', x, y, size);
+			svg.append("circle")
+				.attr('class', 'click-circle')
+				.attr("cx", x)
+				.attr("cy", y)
+				.attr("r", size)
+				.attr("fill", "blue");
+		}
+		
+		svg.on('click', (event) => {
+			var coords = d3.pointer(event);
+			console.log(coords);
+			var max_w_h =  document.getElementById("map").clientWidth;
+			console.log("x: "+(coords[0]/max_w_h)+"  y: "+(coords[1]/max_w_h));
+			drawCircle(coords[0], coords[1], 8);
+		});
+	})();
+</script>
 </html>

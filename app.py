@@ -1,7 +1,8 @@
 import os
 from os.path import join, dirname, realpath
-from flask import Flask, jsonify, render_template, request, redirect, url_for
+from flask import Flask, jsonify, render_template, request, redirect, url_for, session
 from flask_admin import Admin
+from flask_session import Session 
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin.contrib.sqla import ModelView
 from flask_uploads import IMAGES, UploadSet, configure_uploads
@@ -11,8 +12,11 @@ app = Flask(__name__)
 
 app.secret_key = "SECRET_TESTING"
 
+app.config['SECRET_KEY'] = '_1#y6G"F7Q2z\n\succ/'
+app.config['APPLICATION_ROOT'] = "/"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SESSION_TYPE'] = 'sqlalchemy'
 
 # set optional bootswatch theme
 app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
@@ -23,8 +27,12 @@ app.config['UPLOADED_FILES_ALLOW'] = set(['png', 'jpg', 'jpeg', 'pdf'])
 app.config['UPLOADED_FILES_DEST'] = 'static/upload'
 configure_uploads(app, files)
 
-
 db = SQLAlchemy(app)
+
+app.config['SESSION_SQLALCHEMY'] = db
+app.config['APPLICATION_ROOT'] = "/"
+
+sess = Session(app)
 
 
 class Floor(db.Model):
@@ -253,10 +261,28 @@ def admin():
 #def room():
 #   return render_template('/admin/microblog_listlist.html')    
     
+@app.route('/admin_login')
+def admin_login():
+    return render_template('login.html')
 
 @app.route('/t')
 def index():
     return render_template('index2.html')
+
+@app.route('/login', methods=['POST'])
+def login():
+        email = request.form['email']
+        password = request.form['password']
+        querydata = User.query.filter_by(email = email, password = password).first()
+        session['username'] = querydata.nome
+        #session['profile'] = querydata.img
+        return redirect(url_for('list_sala'))
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    session.clear()
+    return redirect(url_for('admin_login')) 
 
 
 @app.route('/floor', methods=['GET'])
@@ -298,4 +324,4 @@ def room_get():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
