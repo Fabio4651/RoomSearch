@@ -319,7 +319,8 @@ def room_get():
         room_type = r.room_type,
         map_position_x = r.map_position_x,
         map_position_y = r.map_position_y,
-        capacity = r.capacity
+        capacity = r.capacity,
+        floor_id = r.floor_id
     )
 
 

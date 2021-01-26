@@ -23,10 +23,12 @@
 					break;
 
 				case "2":
-					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/floor_2.jpg') }}')"; 
+					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/2.jpg') }}')"; 
 					break;
 			}
 		}
+
+
 
 	</script>
 
@@ -49,6 +51,20 @@
 			document.getElementById('point').setAttribute('cx', map_x+"px")
 			map_y = document.getElementById("map_position_y").value*document.getElementById("map").clientWidth;
 			document.getElementById('point').setAttribute('cy', map_y+"px")
+
+			switch(document.getElementById('floor_id').value){
+				case "0":
+					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/floor_0.jpg') }}')";
+					break;
+
+				case "1":
+					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/floor_1.jpg') }}')"; 
+					break;
+
+				case "2":
+					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/2.jpg') }}')"; 
+					break;
+			}
     		});
 		})
 	}
@@ -67,6 +83,7 @@
 						</div>
 					</div>
 				</div>
+				
 			<div class="form-detail">
 				<form id="result">
 					<h2>PESQUISA DE SALA</h2>
@@ -85,7 +102,7 @@
 				<br>
 				<br>
 				<br>
-				<form name='andar'>
+				<!--<form name='andar' class="">
 					<div style="background-color: white; color: #3786bd; font-family: 'Open Sans', sans-serif;border-radius: 25px;" class="form-group row">
 						<h3>Piso</h3>
 						<div class="col-sm-10">
@@ -99,7 +116,7 @@
 							<label for="2"><b>2</b></label><br><br>
 						</div>
 					</div>
-				</form>
+				</form>-->
 			</div>
 		</div>
 	</div>

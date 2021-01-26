@@ -208,6 +208,31 @@ body {
     -o-box-sizing: border-box;
     -ms-box-sizing: border-box;
 }
+.form-v4-content .form-detail .form-radio input {
+	width: 100%;
+    padding: 11.5px 15px;
+    border: 1px solid #e5e5e5;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    appearance: unset;
+    -moz-appearance: unset;
+    -webkit-appearance: unset;
+    -o-appearance: unset;
+    -ms-appearance: unset;
+    outline: none;
+    -moz-outline: none;
+    -webkit-outline: none;
+    -o-outline: none;
+    -ms-outline: none;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    color: #333;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+}
 .form-v4-content .form-detail .form-row input:focus {
 	border: 1px solid #53c83c;
 }
