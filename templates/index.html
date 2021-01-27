@@ -2,32 +2,24 @@
 				<h2>PESQUISA DE SALA</h2>
 				<div class="form-group">
 					<div class="form-row form-row-1">
-						<label for="id">Número da sala</label>
-						<input type="text" disabled value="{{name}}" name="id" id="id" class="input-text">
+						<label for="id">Nome da sala</label>
+						<input type="text" style="text-align: center;" disabled value="{{name}}" name="id" id="id" class="input-text">
 					</div>
 					<div class="form-row form-row-1">
 						<label for="room_type">Tipo</label>
-						<input type="text" disabled value="{{room_type}}" name="room_type" id="room_type" class="input-text">
+						<input type="text" style="text-align: center;" disabled value="{{room_type}}" name="room_type" id="room_type" class="input-text">
 					</div>
 				</div>
-				<div class="form-group">
-					<div class="form-row form-row-1">
-						<label for="map_position_x">Posição X</label>
-						<input type="text" hidden value="{{map_position_x}}" name="map_position_x" id="map_position_x" class="input-text">
-					</div>
-					<div class="form-row form-row-1">
-						<label for="map_position_y">Posição Y</label>
-						<input type="text" hidden value="{{map_position_y}}" name="map_position_y" id="map_position_y" class="input-text">
-						<input type="hidden" value="{{floor_id}}" name="floor_id" id="floor_id">
-					</div>
-				</div>
+				<input type="text" hidden value="{{map_position_x}}" name="map_position_x" id="map_position_x" class="input-text">
+				<input type="text" hidden value="{{map_position_y}}" name="map_position_y" id="map_position_y" class="input-text">
+				<input type="hidden" value="{{floor_id}}" name="floor_id" id="floor_id">
 				<div class="form-row">
 					<label for="capacity">Capacidade</label>
-					<input type="text" disabled value="{{capacity}}" name="capacity" id="capacity" class="input-text">
+					<input type="text" style="text-align: center;" disabled value="{{capacity}}" name="capacity" id="capacity" class="input-text">
 				</div>
 				<div class="form-row">
 					<label for="capacity">Piso</label>
-					<input type="text" disabled value="{{floor_id}}" name="floor_id" id="floor_id" class="input-text">
+					<input type="text" style="text-align: center;" disabled value="{{floor_id}}" name="floor_id" id="floor_id" class="input-text">
 				</div>
 				<div class="form-row">
 					<label for="capacity">Informação</label>

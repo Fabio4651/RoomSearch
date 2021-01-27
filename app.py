@@ -97,7 +97,7 @@ admin.add_view(ModelView(Room, db.session))
 
 
 @app.route('/')
-def hello_world():
+def index():
     return render_template('pesquisarsala.html')
 
     
