@@ -15,7 +15,7 @@
 	function check_value(){
 		switch(document.andar.piso.value){
 				case "0":
-					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/floor_0.jpg') }}')";
+					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/0.jpg') }}')";
 					break;
 
 				case "1":
@@ -51,10 +51,11 @@
 			document.getElementById('point').setAttribute('cx', map_x+"px")
 			map_y = document.getElementById("map_position_y").value*document.getElementById("map").clientWidth;
 			document.getElementById('point').setAttribute('cy', map_y+"px")
+			document.getElementById('point').style.display="block"
 
 			switch(document.getElementById('floor_id').value){
 				case "0":
-					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/floor_0.jpg') }}')";
+					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/0.jpg') }}')";
 					break;
 
 				case "1":
@@ -76,9 +77,9 @@
 				<!--<h2>MAPA</h2>-->
 				<div class="form-left">
 					<div id="mapcont" class="col-md-8" style="height:100%;">
-						<div id="map" style="width:100%; height:100%; background-repeat: no-repeat; background-size: 100%; background-image: url('{{ url_for('static', filename='img/floor_0.jpg') }}');">
+						<div id="map" style="width:100%; height:100%; border-radius: 10px; background-repeat: no-repeat; background-size: 100%; background-image: url('{{ url_for('static', filename='img/0.jpg') }}');">
 							<svg id="svg" style="position:relative; width:100%; height:100%;">
-								<circle id="point" cx="" cy="" r="8" fill="red" />
+								<circle style="display: none;" id="point" cx="" cy="" r="8" fill="red" />
 							</svg>
 						</div>
 					</div>
@@ -90,7 +91,7 @@
 					<div class="form-group">
 						<div class="form-row form-row-1">
 							<label>Nome da sala</label>
-							<input type="text" id="room_name" name="room_name" value="S01" class="input-text">
+							<input type="text" id="room_name" name="room_name" value="1.1" class="input-text">
 						</div>
 					</div>
 					<div class="form-group">

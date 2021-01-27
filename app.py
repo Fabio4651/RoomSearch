@@ -64,8 +64,8 @@ class Room(db.Model):
     __tablename__ = 'room'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256))
-    map_position_x = db.Column(db.Float)
-    map_position_y = db.Column(db.Float)
+    map_position_x = db.Column(db.Float(16))
+    map_position_y = db.Column(db.Float(16))
     room_type = db.Column(db.String(256))
     capacity = db.Column(db.Integer)
     schedule_file = db.Column(db.String(256))
@@ -138,17 +138,14 @@ def insert_sala():
 
 @app.route('/insert_sala2', methods=['POST'])
 def insert_sala2():
-    descending = Room.query.order_by(Room.id.desc())
-    last_item = descending.first()
-    last_id = last_item.id + 1
-    r = Room.query.all()
+
     name = request.form['name']
     capacity = request.form['capacity'] 
-    map_position_x = request.form['x_pos']
-    map_position_y = request.form['y_pos']
     room_type = request.form['type']
     floor_id = request.form['piso']
     info = request.form['info']
+    map_position_x = request.form['x_pos']
+    map_position_y = request.form['y_pos']
     schedule_file = request.files['horario']
     filename = 'static/img/dummy.pdf'
 
@@ -212,7 +209,7 @@ def edit_user():
 @app.route("/update_sala", methods=['POST'])
 def update_sala():
     data=request.args.get('id_sala')
-    update = Room.query.filter_by(id=data)
+    update = Room.query.filter_by(id=data).first()
 
     return render_template('editsala.html', update=update) 
 
@@ -316,11 +313,13 @@ def room_get():
     r = Room.query.filter_by(name=name).all()[0]
     return render_template('index2.html',
         id = r.id,
+        name = r.name,
         room_type = r.room_type,
         map_position_x = r.map_position_x,
         map_position_y = r.map_position_y,
         capacity = r.capacity,
-        floor_id = r.floor_id
+        floor_id = r.floor_id,
+        info = r.info
     )
 
 

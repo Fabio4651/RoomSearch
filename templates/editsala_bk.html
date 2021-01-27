@@ -37,80 +37,31 @@
         <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
       <!-- Style.css -->
       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/backoffice/assets/css/style.css') }}">
-      <script src="{{ url_for('static', filename='d3.js') }}"></script>
-      <script type="text/javascript" src="{{ url_for('static', filename='d3.js') }}"></script>
-
-      <script type="text/javascript">
-
-        function check_value(){
-            switch(document.andar.piso.value){
-                    case "0":
-                        document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/0.jpg') }}')";
-                        break;
-    
-                    case "1":
-                        document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/floor_1.jpg') }}')"; 
-                        break;
-    
-                    case "2":
-                        document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/2.jpg') }}')"; 
-                        break;
-                }
-            }
-    
-    
-    
-        </script>
-
       <script>
-        function mapResize() {
-            document.getElementById("mapcont").style.height = document.getElementById("map").clientWidth+"px";
-        }
-        
-        function myFunction() {
-              let search = document.getElementById("room_name").value;
-                console.log(search);
-    
-            fetch('/room?search='+search)
+        function edit(id) {
+            redirectPost('/edit_sala?id='+id, { id: id })
             .then(function(response) {
-                  console.log(response);
-                 response.text().then(function(text) {
-                document.getElementById("result").innerHTML = text;
-                   
-                map_x = document.getElementById("map_position_x").value*document.getElementById("map").clientWidth;
-                document.getElementById('point').setAttribute('cx', map_x+"px")
-                map_y = document.getElementById("map_position_y").value*document.getElementById("map").clientWidth;
-                document.getElementById('point').setAttribute('cy', map_y+"px")
-
-                });
+                console.log(response);
             })
         }
-        </script>
-              <script>
-                function edit(id) {
-                    redirectPost('/edit_sala?id='+id, { id: id })
-                    .then(function(response) {
-                        console.log(response);
-                    })
-                }
-        
-                function redirectPost(url, id) {
-                    var form = document.createElement('form');
-                    document.body.appendChild(form);
-                    form.method = 'POST';
-                    form.action = url;
-                    var input = document.createElement('input');
-                    input.value = id;
-                    form.appendChild(input);
-        
-                    document.body.appendChild(form);
-                    form.submit();
-                    document.body.removeChild(form);
-                }
-            </script>
+
+        function redirectPost(url, id) {
+            var form = document.createElement('form');
+            document.body.appendChild(form);
+            form.method = 'POST';
+            form.action = url;
+            var input = document.createElement('input');
+            input.value = id;
+            form.appendChild(input);
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        }
+    </script>
   </head>
 
-  <body onload="mapResize(), check_value()">
+  <body>
   <!-- Pre-loader start -->
   <div class="theme-loader">
       <div class="loader-track">
@@ -187,67 +138,67 @@
                                             <h5>Editar Sala</h5>
                                         </div>
                                     <div class="card-block">
-                                        <form method="POST" action="/edit_sala" id="andar" name="andar" enctype="multipart/form-data">
+                                        {% for row in update %}
+                                        <form method="POST" action="/edit_sala" enctype="multipart/form-data">
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Nome</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" id="name" value="{{update.name}}" name="name" class="form-control">
-                                                    <input type="text" hidden class="form-control" value="{{update.id}}" placeholder="" id="id" name="id">
+                                                    <input type="text" id="name" value="{{row.name}}" name="name" class="form-control">
+                                                    <input type="text" hidden class="form-control" value="{{row.id}}" placeholder="" id="id" name="id">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Capacidade</label>
                                                 <div class="col-sm-10">
-                                                    <input type="number" id="capacity" value="{{update.capacity}}" name="capacity" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <input type="hidden" id="x_pos"  value="{{update.map_position_x}}" min="0" max="1" step="0.001" name="x_pos" class="form-control">
-                                            <input type="hidden" id="y_pos"  value="{{update.map_position_y}}" min="0" max="1" step="0.001" name="y_pos" class="form-control">
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">Localização</label>
-                                                <div id="mapcont" class="col-md-8" style="height:100%;">
-                                                    <div id="map" style="width:50%; height:100%; background-repeat: no-repeat; background-size: 100%; background-image: url('{{ url_for('static', filename='img/0.jpg') }}');">
-                                                        <svg id="svg" style="position:relative; width:100%; height:100%;">
-                                                        <!--<circle id="point" cx="" cy="" r="8" fill="red" />-->
-                                                        </svg>
-                                                    </div>
+                                                    <input type="number" id="capacity" value="{{row.capacity}}" name="capacity" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">Piso</label>
-                                                <div class="col-sm-10"><br>
-                                                    <input type="radio" id="piso" onchange='check_value()' name="piso" value="0" {% if update.floor_id==0 %} checked{% endif %}> 
-                                                    <label for="0">0</label><br>
-                                    
-                                                    <input type="radio" id="piso" onchange='check_value()' name="piso" value="1" {% if update.floor_id==1 %} checked{% endif %}>
-                                                    <label for="1">1</label><br> 
-                                    
-                                                    <input type="radio" id="piso" onchange='check_value()' name="piso" value="2" {% if update.floor_id==2 %} checked{% endif %}>
-                                                    <label for="2">2</label><br><br>
+                                                <label class="col-sm-2 col-form-label">Posição X</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" id="x_pos" min="0" value="{{row.map_position_x}}" max="1" step="0.001" name="x_pos" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Posição Y</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" id="y_pos" min="0" value="{{row.map_position_y}}" max="1" step="0.001" name="y_pos" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Tipo de Sala</label>
                                                 <div class="col-sm-10"><br>
-                                                    <input type="radio" id="type" name="type" {% if update.room_type=="Aula" %} checked{% endif %} value="Aula">
+                                                    <input type="radio" id="type" name="type" {% if row.room_type=="Aula" %} checked{% endif %} value="Aula">
                                                     <label for="Aula">Aula</label><br>
                                     
-                                                    <input type="radio" id="type" name="type" {% if update.room_type=="Laboratório" %} checked{% endif %} value="Laboratório">
+                                                    <input type="radio" id="type" name="type" {% if row.room_type=="Laboratório" %} checked{% endif %} value="Laboratório">
                                                     <label for="Laboratório">Laboratório</label><br> 
                                     
-                                                    <input type="radio" id="type" name="type" {% if update.room_type=="Auditório" %} checked{% endif %} value="Auditório">
+                                                    <input type="radio" id="type" name="type" {% if row.room_type=="Auditório" %} checked{% endif %} value="Auditório">
                                                     <label for="Auditório">Auditório</label><br>
                                     
-                                                    <input type="radio" id="type" name="type" {% if update.room_type=="Estudo" %} checked{% endif %} value="Estudo">
+                                                    <input type="radio" id="type" name="type" {% if row.room_type=="Estudo" %} checked{% endif %} value="Estudo">
                                                     <label for="Estudo">Estudo</label><br><br>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Piso</label>
+                                                <div class="col-sm-10"><br>
+                                                    <input type="radio" id="piso" name="piso" value="0" {% if row.floor_id==0 %} checked{% endif %}> 
+                                                    <label for="0">0</label><br>
+                                    
+                                                    <input type="radio" id="piso" name="piso" value="1" {% if row.floor_id==1 %} checked{% endif %}>
+                                                    <label for="1">1</label><br> 
+                                    
+                                                    <input type="radio" id="piso" name="piso" value="2" {% if row.floor_id==2 %} checked{% endif %}>
+                                                    <label for="2">2</label><br><br>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Informações sobre a sala</label>
                                                 <div class="col-sm-10">
                                                     <textarea rows="5" id="info" name="info" cols="5" class="form-control"
-                                                    placeholder="">{{update.info}}</textarea>
+                                                    placeholder="">{{row.info}}</textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -258,6 +209,7 @@
                                             </div>
                                             <button type="submit" class="btn btn-primary waves-effect waves-light">Editar Sala</button>
                                         </form>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -267,6 +219,50 @@
              </div>
         </div>
     </div>
+    <!-- Warning Section Starts -->
+    <!-- Older IE warning message -->
+    <!--[if lt IE 10]>
+    <div class="ie-warning">
+        <h1>Warning!!</h1>
+        <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
+        <div class="iew-container">
+            <ul class="iew-download">
+                <li>
+                    <a href="http://www.google.com/chrome/">
+                        <img src="../backoffice/assets/images/browser/chrome.png" alt="Chrome">
+                        <div>Chrome</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.mozilla.org/en-US/firefox/new/">
+                        <img src="../backoffice/assets/images/browser/firefox.png" alt="Firefox">
+                        <div>Firefox</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.opera.com">
+                        <img src="../backoffice/assets/images/browser/opera.png" alt="Opera">
+                        <div>Opera</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.apple.com/safari/">
+                        <img src="../backoffice/assets/images/browser/safari.png" alt="Safari">
+                        <div>Safari</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                        <img src="../backoffice/assets/images/browser/ie.png" alt="">
+                        <div>IE (9 & above)</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <p>Sorry for the inconvenience!</p>
+    </div>
+    <![endif]-->
+    <!-- Warning Section Ends -->
     
     <!-- Required Jquery -->
     <script type="text/javascript" src="{{ url_for('static', filename='/backoffice/assets/js/jquery/jquery.min.js') }}"></script>
@@ -299,50 +295,7 @@
     <script type="text/javascript" src="{{ url_for('static', filename='/backoffice/assets/pages/dashboard/custom-dashboard.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='/backoffice/assets/js/script.js') }}"></script>
 
-    <script>
-        (function() {
-        var svg = d3.select('#svg');
-        x_pos = document.getElementById("x_pos").value*document.getElementById("map").clientWidth;
-        console.log(document.getElementById("map").clientWidth)
-        y_pos = document.getElementById("y_pos").value*document.getElementById("map").clientWidth;
-        
-        drawCircle(x_pos, y_pos, 8);
-        document.getElementById('x_pos').value = "{{update.map_position_x}}";
-        document.getElementById('y_pos').value = "{{update.map_position_y}}";
-        check=false;
-        
-            function drawCircle(x, y, size) {
-                console.log('Drawing circle at', x, y, size);
-                svg.append("circle")
-                    .attr('class', 'click-circle')
-                    .attr("cx", x)
-                    .attr("cy", y)
-                    .attr("r", size)
-                    .attr("fill", "blue");
-            }
-
-            
-            svg.on('click', (event) => {
-                var coords = d3.pointer(event);
-                console.log(coords);
-                var max_w_h =  document.getElementById("map").clientWidth;
-                console.log("x: "+(coords[0]/max_w_h)+"  y: "+(coords[1]/max_w_h));
-                if(check == true){
-                    drawCircle(coords[0], coords[1], 8);
-                    document.getElementById('x_pos').value = coords[0]/max_w_h;
-                    document.getElementById('y_pos').value = coords[1]/max_w_h;
-                    check=false;
-                }else{
-                    svg.selectAll("circle.click-circle").remove();
-                    document.getElementById('x_pos').value = 0;
-                    document.getElementById('y_pos').value = 0;
-                    check=true;
-                }
-                
-            });
-
-        })();
-    </script>  
+    </script>   
 </body>
 
 </html>
