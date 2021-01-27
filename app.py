@@ -262,10 +262,6 @@ def admin():
 def admin_login():
     return render_template('login.html')
 
-@app.route('/t')
-def index():
-    return render_template('index2.html')
-
 @app.route('/login', methods=['POST'])
 def login():
         email = request.form['email']
@@ -311,7 +307,7 @@ def floorlist():
 def room_get():
     name = request.args.get('search')
     r = Room.query.filter_by(name=name).all()[0]
-    return render_template('index2.html',
+    return render_template('index.html',
         id = r.id,
         name = r.name,
         room_type = r.room_type,
