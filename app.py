@@ -319,6 +319,7 @@ def room_get():
         map_position_y = r.map_position_y,
         capacity = r.capacity,
         floor_id = r.floor_id,
+        schedule_file = r.schedule_file,
         info = r.info
     )
 
