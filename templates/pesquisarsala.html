@@ -2,8 +2,9 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Form-v4 by Colorlib</title>
+	<title>Pesquisa de Salas</title>
 	<!-- Mobile Specific Metas -->
+	<link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}" type="image/x-icon">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<!-- Main Style Css -->
 	<link rel="stylesheet" href="{{ url_for('static', filename='newstyle.css') }}"/>
@@ -19,7 +20,7 @@
 					break;
 
 				case "1":
-					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/floor_1.jpg') }}')"; 
+					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/1.jpg') }}')"; 
 					break;
 
 				case "2":
@@ -59,7 +60,7 @@
 					break;
 
 				case "1":
-					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/floor_1.jpg') }}')"; 
+					document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/1.jpg') }}')"; 
 					break;
 
 				case "2":
@@ -89,13 +90,13 @@
 				<form id="result" autocomplete="off">
 					<h2>PESQUISA DE SALA</h2>
 					<div class="form-group">
-						<div class="form-row form-row-1 autocomplete">
+						<div class="form-row autocomplete">
 							<label>Nome da sala</label>
-							<input type="text" id="room_name" name="room_name" value="1.1" class="input-text">
+							<input type="text" id="room_name" name="room_name" class="input-text">
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="form-row form-row-1"><br>
+						<div class="form-row"><br>
 							<input name="register" id="search" onclick="myFunction()" class="register" value="Procurar">
 						</div>
 					</div>
@@ -103,51 +104,12 @@
 				<br>
 				<br>
 				<br>
-				<!--<form name='andar' class="">
-					<div style="background-color: white; color: #3786bd; font-family: 'Open Sans', sans-serif;border-radius: 25px;" class="form-group row">
-						<h3>Piso</h3>
-						<div class="col-sm-10">
-							<input type="radio" id="piso" name="piso" onchange='check_value()' value="0">
-							<label for="0"><b>0</b></label><br>
-			
-							<input type="radio" id="piso" name="piso" onchange='check_value()' value="1">
-							<label for="1"><b>1</b></label><br> 
-			
-							<input type="radio" id="piso" name="piso" onchange='check_value()' value="2">
-							<label for="2"><b>2</b></label><br><br>
-						</div>
-					</div>
-				</form>-->
 			</div>
 		</div>
 	</div>
 
 </body>
 <script>
-	(function() {
-    var svg = d3.select('#svg');
-    
-		/*function drawCircle(x, y, size) {
-			console.log('Drawing circle at', x, y, size);
-			svg.append("circle")
-				.attr('class', 'click-circle')
-				.attr("cx", x)
-				.attr("cy", y)
-				.attr("r", size)
-				.attr("fill", "blue");
-		}
-		
-		svg.on('click', (event) => {
-			var coords = d3.pointer(event);
-			console.log(coords);
-			var max_w_h =  document.getElementById("map").clientWidth;
-			console.log("x: "+(coords[0]/max_w_h)+"  y: "+(coords[1]/max_w_h));
-			drawCircle(coords[0], coords[1], 8);
-		});*/
-	})();
-
-	/*An array containing all the country names in the world:*/
-var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
 
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
@@ -163,7 +125,7 @@ function autocomplete(inp, arr) {
       /*create a DIV element that will contain the items (values):*/
       a = document.createElement("DIV");
       a.setAttribute("id", this.id + "autocomplete-list");
-      a.setAttribute("class", "autocomplete-items");
+	  a.setAttribute("class", "autocomplete-items");
       /*append the DIV element as a child of the autocomplete container:*/
       this.parentNode.appendChild(a);
       /*for each item in the array...*/

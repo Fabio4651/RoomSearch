@@ -303,7 +303,13 @@ def floorlist():
 @app.route("/room", methods=['GET'])
 def room_get():
     name = request.args.get('search')
+    exists = db.session.query(Room.name).filter_by(name=name).scalar() is not None
+    if(exists == False):
+        return render_template('nosala.html')
     r = Room.query.filter_by(name=name).all()[0]
+
+    
+        #return "Sala não existe"
     return render_template(
         'index.html',
         id=r.id,

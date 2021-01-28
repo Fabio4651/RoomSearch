@@ -287,6 +287,7 @@ body {
 	background: #3786bd;
 	border-top-left-radius: 5px;
 	border-bottom-right-radius: 5px;
+	text-align: center;
 	width: 130px;
 	border: none;
 	margin: 6px 0 50px 0px;
@@ -295,7 +296,7 @@ body {
 	font-weight: 700;
 	font-size: 15px;
 	position: absolute;
-	left: 0px;
+	left: 40%;
 }
 .form-v4-content .form-detail .register:hover {
 	background: #2f73a3;
@@ -370,8 +371,9 @@ body {
 	z-index: 99;
 	/*position the autocomplete items to be the same width as the container:*/
 	top: 72%;
-	left: 0;
+	left: 0%;
 	right: 0;
+	width: 100%;
   }
   
   .autocomplete-items div {

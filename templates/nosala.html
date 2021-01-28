@@ -1,0 +1,23 @@
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/opensans-font.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fonts/line-awesome/css/line-awesome.min.css') }}">
+	<!-- Main Style Css -->
+	<link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}" type="image/x-icon">
+	<link rel="stylesheet" href="{{ url_for('static', filename='newstyle.css') }}"/>
+	<!--<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>-->
+
+	<form id="result" autocomplete="off">
+		<h2>PESQUISA DE SALA</h2>
+		<div style="text-align: center;"class="form-group">
+			<div class="form-row autocomplete">
+				<label>Nome da sala</label>
+				<input type="text" id="room_name" name="room_name" class="input-text">
+				<label id="your_email-error" class="error" for="your_email">Sala Não existe</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="form-row"><br>
+				<input name="register" id="search" onclick="myFunction()" class="register" value="Procurar">
+			</div>
+		</div>
+	</form>

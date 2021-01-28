@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Mega Able bootstrap admin template by codedthemes </title>
+    <title>Pesquisa de Salas</title>
 
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,7 +18,7 @@
       <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
       <meta name="author" content="codedthemes" />
       <!-- Favicon icon -->
-      <link rel="icon" href="{{ url_for('static', filename='/backoffice/assets/images/favicon.ico') }}" type="image/x-icon">
+      <link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
     <!-- waves.css -->
@@ -49,12 +49,21 @@
                         break;
     
                     case "1":
-                        document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/floor_1.jpg') }}')"; 
+                        document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/1.jpg') }}')"; 
                         break;
     
                     case "2":
                         document.getElementById("map").style.backgroundImage = "url('{{ url_for('static', filename='img/2.jpg') }}')"; 
                         break;
+                }
+            }
+
+            function validateForm() {
+                var x = document.forms["andar"]["x_pos"].value;
+                var y = document.forms["andar"]["y_pos"].value;
+                if (x == "" || y == "") {
+                    alert("Deve marcar a posição da sala no mapa!");
+                    return false;
                 }
             }
     
@@ -165,7 +174,7 @@
                                             <h5>Adicionar Sala</h5>
                                         </div>
                                     <div class="card-block">
-                                        <form method="POST" action="/insert_sala2" id="andar" name="andar" enctype="multipart/form-data">
+                                        <form method="POST" action="/insert_sala2" onsubmit="return validateForm()" id="andar" name="andar" enctype="multipart/form-data">
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Nome</label>
                                                 <div class="col-sm-10">
