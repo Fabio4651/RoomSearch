@@ -101,6 +101,11 @@ admin.add_view(ModelView(Room, db.session))
 def index():
     return render_template('pesquisarsala.html')
 
+@app.route('/search_sala', methods=['GET'])
+def all_sala():
+    r = Room.query.all()
+    names = [room.name for room in r]
+    return jsonify(names)
 
 @app.route('/list_sala')
 def list_sala():
@@ -231,6 +236,7 @@ def update_sala():
     if 'username' in session:   
         data = request.args.get('id_sala')
         update = Room.query.filter_by(id=data).first()
+        print(update.name)
 
         return render_template('editsala.html', update=update)
     return redirect(url_for('admin_login')) 
